@@ -13,8 +13,6 @@ $ faas new --list
 Languages available as templates:
 - golang-gorilla
 - golang-gorilla-armhf
-- golang-middleware
-- golang-middleware-armhf
 ```
 
 > To build and deploy a function for your Raspberry Pi or ARMv7 in general, use the language templates ending in `-armhf`.
