@@ -10,11 +10,10 @@ import (
 
 // Config Router
 func Config(r *mux.Router) {
-	r.HandleFunc("/", Handle)
+	r.HandleFunc("/", handleDefault)
 }
 
-// Handle request
-func Handle(w http.ResponseWriter, r *http.Request) {
+func handleDefault(w http.ResponseWriter, r *http.Request) {
 	var input []byte
 
 	if r.Body != nil {

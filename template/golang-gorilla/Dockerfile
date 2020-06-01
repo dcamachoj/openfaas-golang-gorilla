@@ -16,11 +16,17 @@ COPY . .
 RUN cat function/GO_REPLACE.txt >> ./go.mod || exit 0
 
 # Run a gofmt and exclude all vendored code.
-RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
+# RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
 
 ARG GO111MODULE="off"
 ARG GOPROXY=""
 ARG GOFLAGS=""
+ARG PROJECT="prj"
+ARG TYPE="svc"
+
+# replace function with PROJECT
+RUN sed -ei "s|function/handler|function/$TYPE|g" main.go
+RUN sed -ei "s|function.Config(r)|$TYPE.Config(r)|g" main.go
 
 WORKDIR /go/src/handler/function
 
