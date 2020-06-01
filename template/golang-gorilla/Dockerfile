@@ -21,11 +21,10 @@ RUN cat function/GO_REPLACE.txt >> ./go.mod || exit 0
 ARG GO111MODULE="off"
 ARG GOPROXY=""
 ARG GOFLAGS=""
-ARG PROJECT="prj"
 ARG TYPE="svc"
 
 # replace function with PROJECT
-RUN sed -ei "s|function/handler|function/$TYPE|g" main.go
+RUN sed -ei "s|\"handler/function\"|$TYPE \"handler/function\"|g" main.go
 RUN sed -ei "s|function.Config(r)|$TYPE.Config(r)|g" main.go
 
 WORKDIR /go/src/handler/function
